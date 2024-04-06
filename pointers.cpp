@@ -11,6 +11,13 @@ int main()
     cout<<"Num after (*p)++"<<endl;
     cout<<num<<endl;
    
+
+//    copying a pointer
+    int *q=p;
+    cout<<p<<"-"<<q<<endl;
+    cout<<*p<<"-"<<*q<<endl;
+    // now both p and q are same pointers
+
     
     
     return 0;
