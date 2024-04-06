@@ -18,6 +18,15 @@ int main()
     cout<<*p<<"-"<<*q<<endl;
     // now both p and q are same pointers
 
+
+    // Important concepts:
+    int i=3;
+    int *t=&i;
+    *t=*t+1;
+    cout<<(*t)<<endl; //*t=*t+1
+    cout<<"before t "<<t<<endl;
+    t=t+1;
+    cout<<"after t "<<t<<endl;
     
     
     return 0;
