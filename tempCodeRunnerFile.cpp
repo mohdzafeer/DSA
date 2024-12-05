@@ -1,2 +1,1 @@
-
-    // cout<<"updated Address Value : "<<p<<endl;
+/sizeof(arr[0]);
