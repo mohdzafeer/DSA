@@ -1,16 +1,17 @@
 #include<iostream>
+#include <string.h>
 using namespace std;
 
 class Hero{
     private:
-    char name[100];
 
 
     
     int health;
-    char level;
 
     public:
+    char *name;
+    char level;
 
     int getHealth(){
         return health;
@@ -28,7 +29,8 @@ class Hero{
     }
 
     Hero(){
-        cout<<"Constructor called"<<endl;
+        cout<<"Default Constructor called"<<endl;
+        name = new char[100];
     }
 
     Hero(int health){
@@ -39,6 +41,19 @@ class Hero{
     Hero(int health,char level){
         this->health=health;
         this->level=level;
+    }
+
+
+    void print (){
+        cout<<endl;
+        cout<<"Name : "<<this->name<<endl;
+        cout<<"Health : "<<this->health<<endl;
+        cout<<"Level : "<<this->level<<endl;
+    }
+
+
+    void setName(char name[]){
+        strcpy(this->name,name);
     }
 
 };
@@ -72,6 +87,32 @@ int main()
     cout<<"health of h2 is : "<<h2->getHealth()<<endl;
     // cout<<"Level of h2 is : "<<(*h2).getLevel()<<endl;
     cout<<"Level of h2 is : "<<h2->getLevel()<<endl;
+
+
+
+
+
+
+
+
+
+    Hero h4(40,'E');
+    h4.print();
+
+    Hero h5(h4); //Copy constructor : h5 will have same values as h4
+    h5.print();
+
+
+
+
+
+
+    Hero h6;
+    h6.sethealth(12);
+    h6.setlevel('F');
+    char c='Zafeer';
+    // h6.setName(c);
+    
 
     return 0;
 }
