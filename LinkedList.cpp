@@ -30,11 +30,13 @@ void insertAtTail(Node *&tail, int d)
     tail = tail->next;
 }
 
-int lengthoflinkedList(Node* &head){
-    Node*temp=head;
-    int len=0;
-    while(temp!=NULL){
-        temp=temp->next;
+int lengthoflinkedList(Node *&head)
+{
+    Node *temp = head;
+    int len = 0;
+    while (temp != NULL)
+    {
+        temp = temp->next;
         len++;
     }
     return len;
@@ -52,24 +54,23 @@ void print(Node *&head)
     cout << endl;
 }
 
-int middleElement(Node*&head){
+int middleElement(Node *&head)
+{
 
-    int len=lengthoflinkedList(head);
-    int middleIndex=(len/2);
+    int len = lengthoflinkedList(head);
+    int middleIndex = (len / 2);
 
-    Node*temp=head;
-    int cnt=0;
-    while(cnt<middleIndex){
-        temp=temp->next;
+    Node *temp = head;
+    int cnt = 0;
+    while (cnt < middleIndex)
+    {
+        temp = temp->next;
         cnt++;
     }
     return temp->data;
-
-    
-
 }
 
-void insertAtPosition(Node *&head,Node*& tail, int position, int d)
+void insertAtPosition(Node *&head, Node *&tail, int position, int d)
 {
     // Insert at Start
     if (position == 1)
@@ -88,7 +89,9 @@ void insertAtPosition(Node *&head,Node*& tail, int position, int d)
     }
 
     // inserting at Last position
-    if(temp->next==NULL){}
+    if (temp->next == NULL)
+    {
+    }
     {
         insertAtTail(tail, d);
         return;
@@ -101,71 +104,103 @@ void insertAtPosition(Node *&head,Node*& tail, int position, int d)
     temp->next = nodeToInsert;
 }
 
-
-void deleteNode(Node* &head,int position){
+void deleteNode(Node *&head, int position)
+{
 
     // deleting starting Node
-    if(position==1){
-        Node* temp=head;
-        head=head->next;
+    if (position == 1)
+    {
+        Node *temp = head;
+        head = head->next;
         delete temp;
     }
     // Deleting middle or ending Node
-    else{
-        Node* curr=head;
-        Node* prev=NULL;
+    else
+    {
+        Node *curr = head;
+        Node *prev = NULL;
 
-        int cnt=1;
-        while(cnt<position){
-            prev=curr;
-            curr=curr->next;
+        int cnt = 1;
+        while (cnt < position)
+        {
+            prev = curr;
+            curr = curr->next;
             cnt++;
         }
-        prev->next=curr->next;
+        prev->next = curr->next;
         delete curr;
     }
-
 }
 
-Node* floydDetectionLoop(Node* &head){
+Node *floydDetectionLoop(Node *&head)
+{
 
-    if(head==NULL) return NULL;
+    if (head == NULL)
+        return NULL;
 
-    Node*slow=head;
-    Node*fast=head;
+    Node *slow = head;
+    Node *fast = head;
 
-    while(slow!=NULL && fast!=NULL){
-        fast=fast->next;
-        if(fast!=NULL){
-            fast=fast->next;
+    while (slow != NULL && fast != NULL)
+    {
+        fast = fast->next;
+        if (fast != NULL)
+        {
+            fast = fast->next;
         }
-        slow=slow->next;
-        if(slow==fast){
+        slow = slow->next;
+        if (slow == fast)
+        {
             // cout<<"Cycle is present at "<<slow->data<<endl;
             return slow;
         }
     }
-    return NULL;    
+    return NULL;
 }
 
+Node *getStartingNode(Node *head)
+{
+    if (head == NULL)
+        return NULL;
 
-Node* getStartingNode(Node* head){
-    if(head==NULL) return NULL;
+    if (floydDetectionLoop(head))
+    {
+        Node *slow = head;
+        Node *intersectionNode = floydDetectionLoop(head);
 
-    if(floydDetectionLoop(head)){
-        Node*slow=head;
-    Node*intersectionNode=floydDetectionLoop(head);
-
-    while(slow!=intersectionNode){
-        slow=slow->next;
-        intersectionNode=intersectionNode->next;
+        while (slow != intersectionNode)
+        {
+            slow = slow->next;
+            intersectionNode = intersectionNode->next;
+        }
+        return slow;
     }
-    return slow;
-    }
-    else{
+    else
+    {
         return NULL;
     }
+}
 
+void removeLoop(Node *&head)
+{
+    if (head == NULL)
+        return;
+
+    if (floydDetectionLoop(head))
+    {
+        Node *startOfLoop = getStartingNode(head);
+        Node *temp = startOfLoop;
+        while (temp->next != startOfLoop)
+        {
+            temp = temp->next;
+        }
+        temp->next = NULL;
+        cout << "Loop removed successfully" << endl;
+    }
+    else
+    {
+        return;
+    }
 }
 
 int main()
@@ -176,11 +211,11 @@ int main()
 
     Node *head = node1;
     Node *tail = node1;
-    insertAtHead(head,3);
-    insertAtHead(head,4);
-    insertAtHead(head,5);
-    insertAtHead(head,6);
-    insertAtHead(head,7);
+    insertAtHead(head, 3);
+    insertAtHead(head, 4);
+    insertAtHead(head, 5);
+    insertAtHead(head, 6);
+    insertAtHead(head, 7);
 
     insertAtTail(tail, 3);
     insertAtTail(tail, 4);
@@ -191,8 +226,8 @@ int main()
     // insertAtPosition(head,tail, 1, 1);
     print(head);
 
-    cout<<"Head = "<<head->data<<endl;
-    cout<<"Tail = "<<tail->data<<endl;
+    cout << "Head = " << head->data << endl;
+    cout << "Tail = " << tail->data << endl;
 
     // deleteNode(head,3);
     // print(head);
@@ -201,13 +236,17 @@ int main()
     // int len=lengthoflinkedList(head);
     // cout<<"Middle element of the Linked List is : "<<middleElement(head);
 
-    tail->next=head->next;
+    tail->next = head->next;
     // print(head);
-    if(floydDetectionLoop(head)){
-        cout<<"Cycle detected"<<endl;
-        cout<<"Starting Node is "<<getStartingNode(head)->data<<endl;
+    if (floydDetectionLoop(head))
+    {
+        cout << "Cycle detected" << endl;
+        cout << "Starting Node is " << getStartingNode(head)->data << endl;
+        removeLoop(head);
+        print(head);
     }
-    else{
-        cout<<"No cycle detected"<<endl;
+    else
+    {
+        cout << "No cycle detected" << endl;
     }
 }
