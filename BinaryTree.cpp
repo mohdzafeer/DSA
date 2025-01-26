@@ -22,12 +22,12 @@ Node *buildTree(Node *root)
     cout << "Enter the data : ";
     int data;
     cin >> data;
-    root = new Node(data);
 
     if (data == -1)
     {
         return NULL;
     }
+    root = new Node(data);
 
     cout << "Enter data for inserting left of " << data << endl;
     root->left = buildTree(root->left);
@@ -74,6 +74,44 @@ void levelOrderTraversal(Node* root)
     }
 }
 
+
+void inorderTraversal(Node*root){
+    // base case
+    if(root==NULL){
+        return;
+    }
+    
+
+    // LNR , left call , print , right call
+    inorderTraversal(root->left);
+    cout<<root->data<<" ";
+    inorderTraversal(root->right);
+}
+
+void preorderTraversal(Node*root){
+    if(root==NULL){
+        return;
+    }
+
+    // NLR , print , left call , right call
+    cout<<root->data<<" ";
+    preorderTraversal(root->left);
+    preorderTraversal(root->right);
+}
+
+void postorderTraversal(Node*root){
+    if(root==NULL){
+        return;
+    }
+
+    // LRN , left call , Right call , print
+    postorderTraversal(root->left);
+    postorderTraversal(root->right);
+    cout<<root->data<<" ";
+ 
+    
+}
+
 int main()
 {
     Node* root = NULL;
@@ -81,9 +119,18 @@ int main()
     // building a tree
     root = buildTree(root);
 
-    // 1 3 7 -1 -1 11 -1 -1 5 17 -1 -1 4 -1 -1
+    // 1 3 7 -1 -1 11 -1 -1 5 17 -1 -1 -1
     // Level Order Traversal
     cout << "Level Order Traversal : " << endl;
     levelOrderTraversal(root);
+    cout<<"Inorder Traversal : ";
+    inorderTraversal(root);
+    cout<<endl;
+    cout<<"Preorder Traversal : ";
+    preorderTraversal(root);
+    cout <<endl;
+    cout<<"Postorder Traversal : ";
+    postorderTraversal(root);
+    cout << endl;
     return 0;
 }
